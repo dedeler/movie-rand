@@ -1,0 +1,4 @@
+movie-rand
+==========
+
+Movie movrand();
