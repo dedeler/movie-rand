@@ -1,5 +1,5 @@
 /*
-  This program is part of movrand (https://github.com/destan/change-it-now)
+  This program is part of MovieRand (https://github.com/destan/change-it-now)
 
   change-it-now is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
