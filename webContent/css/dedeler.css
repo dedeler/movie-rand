@@ -1,0 +1,27 @@
+legend{
+	margin: 10px 0 8px 0;
+}
+
+#header{
+  text-align: center;
+}
+
+#main{
+  min-height: 450px;
+}
+
+#resultContainer{
+  padding-top: 40px;
+}
+
+#resultArea2{
+	font-size: 1.1em;
+}
+
+#footer{
+  bottom: 0;
+  width: auto;
+  left: 10%;
+  right: 10%;
+  text-align: center;
+}
