@@ -1,3 +1,18 @@
+a, a:visited, a:active{
+  color: gray;
+}
+
+a:hover{
+  color: #dd4814;
+  text-decoration: none;
+}
+
+h1  sup{
+  font-weight: normal;
+  font-size: 0.3em;
+  top: -1.5em;
+}
+
 legend{
 	margin: 10px 0 8px 0;
 }
@@ -12,10 +27,18 @@ legend{
 
 #resultContainer{
   padding-top: 40px;
+  display: none;
+  min-height: 417px;
 }
 
 #resultArea2{
 	font-size: 1.1em;
+}
+
+#loading{
+  text-align: center;
+  display: none;
+  padding: 40px 0 0 0;
 }
 
 #footer{
@@ -24,4 +47,17 @@ legend{
   left: 10%;
   right: 10%;
   text-align: center;
+  font-size: 0.9em;
+}
+
+#gnu{
+  padding-right: 5px;
+}
+
+.float-left{
+  float: left;
+}
+
+.float-right{
+  float: right;
 }
