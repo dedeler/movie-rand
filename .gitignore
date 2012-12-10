@@ -16,6 +16,3 @@ node_modules
 npm-debug.log
 
 *~
-
-# protecting api key
-properties.js
