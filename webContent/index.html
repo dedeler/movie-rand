@@ -44,7 +44,7 @@
             <button id="suggestButton" class="btn btn-large btn-success btn-block" type="button" disabled>Suggest <i class="icon-film icon-white"></i></button>
           </div>
         </div>
-        <div id="resultContainer" class="row-fluid">
+        <div id="resultContainer" class="row-fluid mutex1">
           <div id="resultArea1" class="offset3 span3">
             <img id="resultImg" src="" title="Movie poster" />
           </div>
@@ -54,10 +54,15 @@
               <legend>Vote</legend><div id="resultVote"></div>
           </div>
         </div>
-        <div id="loading" class="row-fluid">
+        <div id="loading" class="row-fluid mutex1">
           <div class="offset3 span6">
             <p>Please wait...</p>
             <img src="img/ajax-loader.gif" />
+          </div>
+        </div>
+        <div id="noResult" class="row-fluid mutex1">
+          <div class="offset3 span6">
+            <p>Sorry no movie is found for this category</p>
           </div>
         </div>
       </div>
