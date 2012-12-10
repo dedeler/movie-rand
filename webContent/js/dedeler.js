@@ -25,15 +25,21 @@ $(document).ready(function() {
   //Fill genres list
   $.get('genre/list', function(genres) {
     if(genres){
+      $('#genres').html(''); // clear combo
       for (var i = 0; i < genres.length; i++) {
         $('#genres').append('<option value=' + genres[i].id + '>' + genres[i].name + '</option>');
       };
+      $('#genres').removeAttr('disabled');
+      $('#suggestButton').removeAttr('disabled');
     }
   }, 'json');
 
   $('#suggestButton').click(function() {
     var button = $(this);
     var genreId = $('#genres').find(":selected").val();
+
+    $('#resultContainer').hide();
+    $('#loading').show();
 
     button.attr("disabled", true);
 
@@ -46,7 +52,13 @@ $(document).ready(function() {
       $('#resultOrigTitle').html(movie.originalTitle);
       $('#resultVote').html(movie.vote);
 
+      //post decoration actions
       button.removeAttr("disabled");
+      $('#resultContainer').show();
+      $('#loading').hide();
+      $('html, body').animate({
+          scrollTop: $("#resultContainer").offset().top
+       }, 1500);
     }, 'json');
 
   });

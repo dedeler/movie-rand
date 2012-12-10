@@ -18,17 +18,18 @@
     <![endif]-->
 
     <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="../assets/ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="img/favicon.png">
+  
   </head>
   <body>
     <div id="container" class="container-fluid">
       <div id="header" class="row-fluid">
         <div class="span6 offset3">
-          <h1>MovieRand()</h1>
+          <h1>MovieRand()<sup>pre-alpha</sup></h1>
           <hr>
         </div>
       </div>
@@ -37,13 +38,15 @@
         <div class="row-fluid">
           <div class="span6 offset3">
             <label for="genres">Choose a category: </label>
-            <select id="genres"></select>
-            <button id="suggestButton" class="btn btn-large btn-success btn-block" type="button">Suggest <i class="icon-film icon-white"></i></button>
+            <select id="genres" disabled>
+              <option>Loading...</option>
+            </select>
+            <button id="suggestButton" class="btn btn-large btn-success btn-block" type="button" disabled>Suggest <i class="icon-film icon-white"></i></button>
           </div>
         </div>
         <div id="resultContainer" class="row-fluid">
           <div id="resultArea1" class="offset3 span3">
-            <img id="resultImg" src="" />
+            <img id="resultImg" src="" title="Movie poster" />
           </div>
           <div id="resultArea2" class="span3">
               <legend>Title</legend><div id="resultTitle"></div>
@@ -51,11 +54,25 @@
               <legend>Vote</legend><div id="resultVote"></div>
           </div>
         </div>
+        <div id="loading" class="row-fluid">
+          <div class="offset3 span6">
+            <p>Please wait...</p>
+            <img src="img/ajax-loader.gif" />
+          </div>
+        </div>
       </div>
 
       <div id="footer">
         <hr>
-        <p>&copy; Dedeler 2013</p>
+        <div class="pull-left">
+          <img id="gnu" class="float-left" width="32" src="img/gnu.png">
+          <div class="float-right"> This is a Free Software</div><br>
+          <div class="pull-left"><a target="_blank" href="https://github.com/dedeler/movie-rand"> View source &amp; license</a></div>
+        </div>
+        <a target="_blank" href="http://www.github.com/dedeler">&copy; Dedeler 2013</a>
+        <div class="pull-right">
+          Using <a target="_blank" href="http://www.themoviedb.org">TheMovieDb's</a> api
+        </div>
       </div>
 
     </div> <!-- /container -->
