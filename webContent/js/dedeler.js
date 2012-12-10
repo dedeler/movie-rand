@@ -22,8 +22,24 @@ $(document).ready(function() {
     dataType: 'json'
   });
 
+  function showErrorWarning() {
+    var warningRibbon = '<div id="errorRibbon" class="alert alert-error fade in">\
+        <button type="button" class="close" data-dismiss="alert">&times;</button>\
+        <strong>Uppss!</strong> Something crashed, please try reloading page. Sorry about that :( &nbsp;&nbsp;&nbsp;\
+        <button type="button" class="btn" onclick="window.location.reload()">Reload</button>\
+      </div>';
+    $('#container').prepend(warningRibbon);  
+    $('#errorRibbon').fadeIn();
+  }
+
   //Fill genres list
   $.get('genre/list', function(genres) {
+
+    if(genres.success == false){
+      showErrorWarning();
+      return;
+    }
+
     if(genres){
       $('#genres').html(''); // clear combo
       for (var i = 0; i < genres.length; i++) {
@@ -45,6 +61,11 @@ $(document).ready(function() {
 
     //Get random movie by genre
     $.get('movie/genre/' + genreId, function(movie) {
+
+      if(movie.success == false){
+        showErrorWarning();
+        return;
+      }
       
       //decorate result
       $('#resultImg').attr('src', movie.poster);

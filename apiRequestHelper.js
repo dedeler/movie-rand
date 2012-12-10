@@ -54,8 +54,18 @@ module.exports = {
           callback(str);
         }
       });
-    }
+    };
 
-    http.request(options, internalResponseCallback).end();
+    var request = http.request(options, internalResponseCallback);
+
+    request.on('error', function(e) {
+      console.log("@apiRequestHelper#httpGetRequest: Error: " + e.message);
+
+      if(typeof callback == 'function'){
+        callback(JSON.stringify({"success": false}));
+      }
+    });
+
+    request.end();
   }//end of httpGetRequest
 };

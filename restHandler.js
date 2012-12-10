@@ -27,6 +27,12 @@ module.exports = {
 
       var apiResponse = JSON.parse(responseString);
 
+      // return unsuccessful response if present
+      if(apiResponse.success == false){
+        res.end(JSON.stringify(apiResponse));     
+        return;   
+      }
+
       res.end(JSON.stringify(apiResponse.genres));
     });
   },
@@ -41,6 +47,12 @@ module.exports = {
       apiRequestHelper.httpGetRequest('/3/genre/' + req.params.id + '/movies',function(responseString) {
 
         var apiResponse = JSON.parse(responseString);
+
+        // return unsuccessful response if present
+        if(apiResponse.success == false){
+          res.end(JSON.stringify(apiResponse));   
+          return;     
+        }
 
         pageCount = apiResponse.total_pages;
         itemCount = apiResponse.results ? apiResponse.results.length : 0;
