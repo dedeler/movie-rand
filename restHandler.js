@@ -55,9 +55,8 @@ module.exports = {
         }
 
         pageCount = apiResponse.total_pages;
-        itemCount = apiResponse.results ? apiResponse.results.length : 0;
 
-        if(pageCount == 0){
+        if(pageCount == 0){// there is no result for this genre
           res.end(JSON.stringify({
             "success":false,
             "code":"EMPTY"
@@ -66,22 +65,41 @@ module.exports = {
         }
 
         randomPage = randomFromInterval(1, pageCount);
-        randomItem = randomFromInterval(0, itemCount - 1);
 
-        //TODO consider other pages :)
+        if(randomPage != 1){
+          apiRequestHelper.httpGetRequest('/3/genre/' + req.params.id + '/movies?page=' + randomPage, function(responseString) {
+            apiResponse = JSON.parse(responseString);
 
-        var selectedMovie = apiResponse.results[randomItem];
+            // return unsuccessful response if present
+            if(apiResponse.success == false){
+              res.end(JSON.stringify(apiResponse));   
+              return;     
+            }
 
-        //process selected movie
-        var processedResult = {
-          id: selectedMovie.id,
-          title: selectedMovie.title,
-          originalTitle: selectedMovie.original_title,
-          poster: posterBase + selectedMovie.poster_path,
-          vote: selectedMovie.vote_average
-        };
+            pickRandomMovieAndRespondBack();
+          });
+          return;
+        }
 
-        res.end(JSON.stringify(processedResult));
+        function pickRandomMovieAndRespondBack() {
+          itemCount = apiResponse.results ? apiResponse.results.length : 0;
+          randomItem = randomFromInterval(0, itemCount - 1);
+          var selectedMovie = apiResponse.results[randomItem];
+
+          //process selected movie
+          var processedResult = {
+            id: selectedMovie.id,
+            title: selectedMovie.title,
+            originalTitle: selectedMovie.original_title,
+            poster: posterBase + selectedMovie.poster_path,
+            vote: selectedMovie.vote_average
+          };
+
+          res.end(JSON.stringify(processedResult));
+        }
+
+        pickRandomMovieAndRespondBack();
+
       });
     }//end if
   }
