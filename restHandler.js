@@ -57,6 +57,14 @@ module.exports = {
         pageCount = apiResponse.total_pages;
         itemCount = apiResponse.results ? apiResponse.results.length : 0;
 
+        if(pageCount == 0){
+          res.end(JSON.stringify({
+            "success":false,
+            "code":"EMPTY"
+          }));
+          return;
+        }
+
         randomPage = randomFromInterval(1, pageCount);
         randomItem = randomFromInterval(0, itemCount - 1);
 

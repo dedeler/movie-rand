@@ -54,13 +54,20 @@ $(document).ready(function() {
     var button = $(this);
     var genreId = $('#genres').find(":selected").val();
 
-    $('#resultContainer').hide();
+    $('.mutex1').hide();
     $('#loading').show();
 
     button.attr("disabled", true);
 
     //Get random movie by genre
     $.get('movie/genre/' + genreId, function(movie) {
+      button.removeAttr("disabled");
+
+      if(movie.success == false && movie.code == "EMPTY"){
+        $('.mutex1').hide();
+        $('#noResult').show();
+        return;
+      }
 
       if(movie.success == false){
         showErrorWarning();
@@ -74,9 +81,8 @@ $(document).ready(function() {
       $('#resultVote').html(movie.vote);
 
       //post decoration actions
-      button.removeAttr("disabled");
+      $('.mutex1').hide();
       $('#resultContainer').show();
-      $('#loading').hide();
       $('html, body').animate({
           scrollTop: $("#resultContainer").offset().top
        }, 1500);

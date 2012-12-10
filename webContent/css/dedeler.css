@@ -41,7 +41,7 @@ legend{
 	font-size: 1.1em;
 }
 
-#loading{
+#loading, #noResult{
   text-align: center;
   display: none;
   padding: 40px 0 0 0;
