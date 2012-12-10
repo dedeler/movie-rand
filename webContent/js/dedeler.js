@@ -16,6 +16,8 @@
 */
 
 $(document).ready(function() {
+  var detailsLinkBase = 'http://www.themoviedb.org/movie/';
+
   $.ajaxSetup({
     cache: false,
     contentType:'application/json; charset=UTF-8',
@@ -79,6 +81,7 @@ $(document).ready(function() {
       $('#resultTitle').html(movie.title);
       $('#resultOrigTitle').html(movie.originalTitle);
       $('#resultVote').html(movie.vote);
+      $('#detailsLink').attr('href', detailsLinkBase + movie.id);
 
       //post decoration actions
       $('.mutex1').hide();
