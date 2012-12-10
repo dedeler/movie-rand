@@ -17,6 +17,12 @@ legend{
 	margin: 10px 0 8px 0;
 }
 
+#errorRibbon{
+  margin-top: 10px;
+  margin-bottom: 0;
+  display: none;
+}
+
 #header{
   text-align: center;
 }
