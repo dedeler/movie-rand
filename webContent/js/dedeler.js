@@ -75,11 +75,12 @@ $(document).ready(function() {
         showErrorWarning();
         return;
       }
-      
+
       //decorate result
       $('#resultImg').attr('src', movie.poster);
-      $('#resultTitle').html(movie.title);
-      $('#resultOrigTitle').html(movie.originalTitle);
+      $('#resultTitle').html(movie.title + 
+        "<div id='originalTitle'>(" + movie.originalTitle + ")<div>");
+      //$('#resultOrigTitle').html(movie.originalTitle);
       $('#resultVote').html(movie.vote);
       $('#detailsLink').attr('href', detailsLinkBase + movie.id);
 
