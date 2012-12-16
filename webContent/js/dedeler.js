@@ -21,13 +21,22 @@ $(document).ready(function() {
   $.ajaxSetup({
     cache: false,
     contentType:'application/json; charset=UTF-8',
-    dataType: 'json'
+    timeout: 10000,
+    dataType: 'json',
+    error: function(xhr, status, error) {
+      if(status == "timeout") {
+        showErrorWarning("Timeout occurred");
+        $('#loading').hide();
+        $('.mutex1').hide();
+        $('#suggestButton').removeAttr("disabled");
+      }
+    }
   });
 
-  function showErrorWarning() {
+  function showErrorWarning(error = "Something crashed") {
     var warningRibbon = '<div id="errorRibbon" class="alert alert-error fade in">\
         <button type="button" class="close" data-dismiss="alert">&times;</button>\
-        <strong>Uppss!</strong> Something crashed, please try reloading page. Sorry about that :( &nbsp;&nbsp;&nbsp;\
+        <strong>Uppss!</strong> ' + error + ' , please try reloading page. Sorry about that :( &nbsp;&nbsp;&nbsp;\
         <button type="button" class="btn" onclick="window.location.reload()">Reload</button>\
       </div>';
     $('#container').prepend(warningRibbon);  
