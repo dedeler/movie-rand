@@ -87,7 +87,7 @@ module.exports = {
           var selectedMovie = apiResponse.results[randomItem];
 
           //get movie details
-          apiRequestHelper.httpGetRequest('/3/movie/' + req.params.id, function(responseString) {
+          apiRequestHelper.httpGetRequest('/3/movie/' + selectedMovie.id, function(responseString) {
               var resp = JSON.parse(responseString);
 
               // return unsuccessful response if present
