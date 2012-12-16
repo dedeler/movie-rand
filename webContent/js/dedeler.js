@@ -17,6 +17,7 @@
 
 $(document).ready(function() {
   var detailsLinkBase = 'http://www.themoviedb.org/movie/';
+  var imdbLinkBase = 'http://www.imdb.com/title/';
 
   $.ajaxSetup({
     cache: false,
@@ -89,8 +90,9 @@ $(document).ready(function() {
       $('#resultImg').attr('src', movie.poster);
       $('#resultTitle').html(movie.title + 
         "<div id='originalTitle'>(" + movie.originalTitle + ")<div>");
-      //$('#resultOrigTitle').html(movie.originalTitle);
+      $('#resultOverview').html(movie.overview);
       $('#resultVote').html(movie.vote);
+      $('#imdbLink').attr('href', imdbLinkBase + movie.imdb);
       $('#detailsLink').attr('href', detailsLinkBase + movie.id);
 
       //post decoration actions

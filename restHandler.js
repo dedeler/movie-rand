@@ -86,16 +86,31 @@ module.exports = {
           randomItem = randomFromInterval(0, itemCount - 1);
           var selectedMovie = apiResponse.results[randomItem];
 
-          //process selected movie
-          var processedResult = {
-            id: selectedMovie.id,
-            title: selectedMovie.title,
-            originalTitle: selectedMovie.original_title,
-            poster: posterBase + selectedMovie.poster_path,
-            vote: selectedMovie.vote_average
-          };
+          //get movie details
+          apiRequestHelper.httpGetRequest('/3/movie/' + req.params.id, function(responseString) {
+              var resp = JSON.parse(responseString);
 
-          res.end(JSON.stringify(processedResult));
+              // return unsuccessful response if present
+              if(resp.success == false){
+                res.end(JSON.stringify(resp));     
+                return;   
+              }
+
+              theMovie = resp;
+              //process selected movie
+              var processedResult = {
+                id: theMovie.id,
+                title: theMovie.title,
+                overview: theMovie.overview,
+                imdb: theMovie.imdb_id,
+                originalTitle: theMovie.original_title,
+                poster: posterBase + theMovie.poster_path,
+                vote: theMovie.vote_average
+              };
+
+              res.end(JSON.stringify(processedResult));
+              });
+
         }
 
         pickRandomMovieAndRespondBack();
