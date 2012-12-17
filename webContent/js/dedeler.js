@@ -74,6 +74,7 @@ $(document).ready(function() {
 
     $('.mutex1').hide();
     $('#loading').show();
+    $('#resultImg').attr('src', '');//prevents old picture's flashing out just before new one's arrival (on FF)
 
     button.attr("disabled", true);
 
