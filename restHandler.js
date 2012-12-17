@@ -84,47 +84,77 @@ module.exports = {
         }
 
         function pickRandomMovieAndRespondBack() {
+
+          // return unsuccessful response if present
+          if(apiResponse.success == false){
+            res.end(JSON.stringify(apiResponse));     
+            return;
+          }
+
           itemCount = apiResponse.results ? apiResponse.results.length : 0;
           randomItem = randomFromInterval(0, itemCount - 1);
           var selectedMovie = apiResponse.results[randomItem];
 
           //get movie details
           apiRequestHelper.httpGetRequest('/3/movie/' + selectedMovie.id, function(responseString) {
-              var theMovie = JSON.parse(responseString);
+            var theMovie = JSON.parse(responseString);
 
-              // return unsuccessful response if present
-              if(theMovie.success == false){
-                res.end(JSON.stringify(theMovie));     
-                return;   
-              }
+            // return unsuccessful response if present
+            if(theMovie.success == false){
+              res.end(JSON.stringify(theMovie));     
+              return;   
+            }
 
-              //process selected movie
-              var processedResult = {
-                id: theMovie.id,
-                title: theMovie.title,
-                overview: theMovie.overview,
-                imdb: theMovie.imdb_id,
-                originalTitle: theMovie.original_title,
-                poster: posterBase + theMovie.poster_path,
-                vote: theMovie.vote_average,
-                releaseDate: theMovie.release_date,
-                tagline: theMovie.tagline
-              };
+            //process selected movie
+            var processedResult = processMovie(theMovie);
 
-              res.end(JSON.stringify(processedResult));
-              });
-
+            res.end(JSON.stringify(processedResult));
+          });
         }
 
         pickRandomMovieAndRespondBack();
 
       });
     }//end if
-  }
+  },//end of getMovieByGenre
+  getMovieById: function(req, res, next) {
+    if(req.params && req.params.id) {
+
+      apiRequestHelper.httpGetRequest('/3/movie/' + req.params.id ,function(responseString) {
+
+        var theMovie = JSON.parse(responseString);
+
+        // return unsuccessful response if present
+        if(theMovie.success == false){
+          res.end(JSON.stringify(theMovie));     
+          return;   
+        }
+
+        //process selected movie
+        var processedResult = processMovie(theMovie);
+
+        res.end(JSON.stringify(processedResult));
+      });//end of api response handler
+
+    }//end of if
+
+  }//end of getMovieById
 };
 
 function randomFromInterval(from, to) {
     return Math.floor(Math.random()*(to-from+1)+from);
 }
 
-
+function processMovie(theMovie) {
+  return {
+    id: theMovie.id,
+    title: theMovie.title,
+    overview: theMovie.overview,
+    imdb: theMovie.imdb_id,
+    originalTitle: theMovie.original_title,
+    poster: posterBase + theMovie.poster_path,
+    vote: theMovie.vote_average,
+    releaseDate: theMovie.release_date,
+    tagline: theMovie.tagline
+  };
+}

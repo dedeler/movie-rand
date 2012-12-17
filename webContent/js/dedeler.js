@@ -15,9 +15,12 @@
   along with change-it-now.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+function refresh(){
+  window.location.hash='';
+  window.location.reload();
+}
+
 $(document).ready(function() {
-  var detailsLinkBase = 'http://www.themoviedb.org/movie/';
-  var imdbLinkBase = 'http://www.imdb.com/title/';
 
   $.ajaxSetup({
     cache: false,
@@ -44,7 +47,7 @@ $(document).ready(function() {
     var warningRibbon = '<div id="errorRibbon" class="alert alert-error fade in">\
         <button type="button" class="close" data-dismiss="alert">&times;</button>\
         <strong>Uppss!</strong> ' + error + ' , please try again. If the problem persists please try reloading the page. Sorry about that :( &nbsp;&nbsp;&nbsp;\
-        <button type="button" class="btn" onclick="window.location.reload()">Reload</button>\
+        <button type="button" class="btn" onclick="refresh()">Reload</button>\
       </div>';
     $('#container').prepend(warningRibbon);  
     $('#errorRibbon').fadeIn();
@@ -66,7 +69,7 @@ $(document).ready(function() {
       $('#genres').removeAttr('disabled');
       $('#suggestButton').removeAttr('disabled');
     }
-  }, 'json');
+  });
 
   $('#suggestButton').click(function() {
     var button = $(this);
@@ -80,39 +83,63 @@ $(document).ready(function() {
 
     //Get random movie by genre
     $.get('movie/genre/' + genreId, function(movie) {
-      button.removeAttr("disabled");
+      decorateByMovie(movie);
+    });//end of ajax
 
-      if(movie.success == false && movie.code == "EMPTY"){
-        $('.mutex1').hide();
-        $('#noResult').show();
-        return;
-      }
+  });//end of suggestButton click
 
-      if(movie.success == false){
-        showErrorWarning();
-        return;
-      }
+  //Check if url has any path
+  if(window.location.hash.substring(1,7) == "movie/" && !isNaN(window.location.hash.substring(7)) ){
+    var movieId = window.location.hash.substring(7);
 
-      //decorate result
-      $('#resultImg').attr('src', movie.poster);
-      $('#resultTitle').html(movie.title);
-      if(movie.title != movie.originalTitle){
-        $('#originalTitle').html('(' + movie.originalTitle + ')');
-      }
-      $('#tagline').html(movie.tagline);
-      $('#resultOverview').html(movie.overview);
-      $('#resultVote').html(movie.vote);
-      $('#imdbLink').attr('href', imdbLinkBase + movie.imdb);
-      $('#detailsLink').attr('href', detailsLinkBase + movie.id);
+    $('.mutex1').hide();
+    $('#loading').show();
 
-      //post decoration actions
-      $('.mutex1').hide();
-      $('#resultContainer').show();
-      $('html, body').animate({
-          scrollTop: $("#resultContainer").offset().top
-       }, 1500);
-    }, 'json');
-
-  });
+    //Get movie by id
+    $.get('movie/' + movieId, function(movie) {
+      decorateByMovie(movie);
+    });//end of ajax
+  }
 
 });//end of doc.ready
+
+function decorateByMovie(movie) {
+  var detailsLinkBase = 'http://www.themoviedb.org/movie/';
+  var imdbLinkBase = 'http://www.imdb.com/title/';
+
+  var button = $('#suggestButton');
+  button.removeAttr("disabled");
+
+  if(movie.success == false && movie.code == "EMPTY"){
+    $('.mutex1').hide();
+    $('#noResult').show();
+    return;
+  }
+
+  if(movie.success == false){
+    showErrorWarning();
+    return;
+  }
+
+  //change url to reflect current movie
+  window.location.hash = 'movie/' + movie.id;
+
+  //decorate result
+  $('#resultImg').attr('src', movie.poster);
+  $('#resultTitle').html(movie.title);
+  if(movie.title != movie.originalTitle){
+    $('#originalTitle').html('(' + movie.originalTitle + ')');
+  }
+  $('#tagline').html(movie.tagline);
+  $('#resultOverview').html(movie.overview);
+  $('#resultVote').html(movie.vote);
+  $('#imdbLink').attr('href', imdbLinkBase + movie.imdb);
+  $('#detailsLink').attr('href', detailsLinkBase + movie.id);
+
+  //post decoration actions
+  $('.mutex1').hide();
+  $('#resultContainer').show();
+  $('html, body').animate({
+      scrollTop: $("#resultContainer").offset().top
+   }, 1500);
+}
