@@ -34,7 +34,9 @@ $(document).ready(function() {
     }
   });
 
-  function showErrorWarning(error = "Something crashed") {
+  function showErrorWarning(error) {
+    error = error || "Something crashed";
+
     var warningRibbon = '<div id="errorRibbon" class="alert alert-error fade in">\
         <button type="button" class="close" data-dismiss="alert">&times;</button>\
         <strong>Uppss!</strong> ' + error + ' , please try reloading page. Sorry about that :( &nbsp;&nbsp;&nbsp;\
