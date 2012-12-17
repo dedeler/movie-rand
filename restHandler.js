@@ -15,6 +15,8 @@
   along with change-it-now.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+"use strict";
+
 var sessionManager = require('./sessionManager');
 var apiRequestHelper = require('./apiRequestHelper');
 
@@ -88,15 +90,14 @@ module.exports = {
 
           //get movie details
           apiRequestHelper.httpGetRequest('/3/movie/' + selectedMovie.id, function(responseString) {
-              var resp = JSON.parse(responseString);
+              var theMovie = JSON.parse(responseString);
 
               // return unsuccessful response if present
-              if(resp.success == false){
-                res.end(JSON.stringify(resp));     
+              if(theMovie.success == false){
+                res.end(JSON.stringify(theMovie));     
                 return;   
               }
 
-              theMovie = resp;
               //process selected movie
               var processedResult = {
                 id: theMovie.id,
@@ -105,7 +106,9 @@ module.exports = {
                 imdb: theMovie.imdb_id,
                 originalTitle: theMovie.original_title,
                 poster: posterBase + theMovie.poster_path,
-                vote: theMovie.vote_average
+                vote: theMovie.vote_average,
+                releaseDate: theMovie.release_date,
+                tagline: theMovie.tagline
               };
 
               res.end(JSON.stringify(processedResult));

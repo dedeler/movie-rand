@@ -27,10 +27,14 @@ $(document).ready(function() {
     error: function(xhr, status, error) {
       if(status == "timeout") {
         showErrorWarning("Timeout occurred");
-        $('#loading').hide();
-        $('.mutex1').hide();
-        $('#suggestButton').removeAttr("disabled");
       }
+      else{
+       showErrorWarning(); 
+      }
+
+      $('#loading').hide();
+      $('.mutex1').hide();
+      $('#suggestButton').removeAttr("disabled");
     }
   });
 
@@ -39,7 +43,7 @@ $(document).ready(function() {
 
     var warningRibbon = '<div id="errorRibbon" class="alert alert-error fade in">\
         <button type="button" class="close" data-dismiss="alert">&times;</button>\
-        <strong>Uppss!</strong> ' + error + ' , please try reloading page. Sorry about that :( &nbsp;&nbsp;&nbsp;\
+        <strong>Uppss!</strong> ' + error + ' , please try again. If the problem persists please try reloading the page. Sorry about that :( &nbsp;&nbsp;&nbsp;\
         <button type="button" class="btn" onclick="window.location.reload()">Reload</button>\
       </div>';
     $('#container').prepend(warningRibbon);  
@@ -90,8 +94,11 @@ $(document).ready(function() {
 
       //decorate result
       $('#resultImg').attr('src', movie.poster);
-      $('#resultTitle').html(movie.title + 
-        "<div id='originalTitle'>(" + movie.originalTitle + ")<div>");
+      $('#resultTitle').html(movie.title);
+      if(movie.title != movie.originalTitle){
+        $('#originalTitle').html('(' + movie.originalTitle + ')');
+      }
+      $('#tagline').html(movie.tagline);
       $('#resultOverview').html(movie.overview);
       $('#resultVote').html(movie.vote);
       $('#imdbLink').attr('href', imdbLinkBase + movie.imdb);
