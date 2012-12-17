@@ -23,7 +23,7 @@ var sessionManager = require('./sessionManager');
 var authenticationHandler = require('./authenticationHandler');
 
 /* SERVER CONFIGURATION */
-var server = restify.createServer({name: "Cevirgec_Server"});
+var server = restify.createServer({name: "MovieRand_Server"});
 server.use( restify.bodyParser({ mapParams: false }) );        //register body parser
 server.use(restify.queryParser({ mapParams: true }));          //register query parser
 server.use(sessionManager.sessionInterceptor);                 //register session interceptor

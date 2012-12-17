@@ -17,17 +17,33 @@
 
 $(document).ready(function() {
   var detailsLinkBase = 'http://www.themoviedb.org/movie/';
+  var imdbLinkBase = 'http://www.imdb.com/title/';
 
   $.ajaxSetup({
     cache: false,
     contentType:'application/json; charset=UTF-8',
-    dataType: 'json'
+    timeout: 10000,
+    dataType: 'json',
+    error: function(xhr, status, error) {
+      if(status == "timeout") {
+        showErrorWarning("Timeout occurred");
+      }
+      else{
+       showErrorWarning(); 
+      }
+
+      $('#loading').hide();
+      $('.mutex1').hide();
+      $('#suggestButton').removeAttr("disabled");
+    }
   });
 
-  function showErrorWarning() {
+  function showErrorWarning(error) {
+    error = error || "Something crashed";
+
     var warningRibbon = '<div id="errorRibbon" class="alert alert-error fade in">\
         <button type="button" class="close" data-dismiss="alert">&times;</button>\
-        <strong>Uppss!</strong> Something crashed, please try reloading page. Sorry about that :( &nbsp;&nbsp;&nbsp;\
+        <strong>Uppss!</strong> ' + error + ' , please try again. If the problem persists please try reloading the page. Sorry about that :( &nbsp;&nbsp;&nbsp;\
         <button type="button" class="btn" onclick="window.location.reload()">Reload</button>\
       </div>';
     $('#container').prepend(warningRibbon);  
@@ -75,12 +91,17 @@ $(document).ready(function() {
         showErrorWarning();
         return;
       }
-      
+
       //decorate result
       $('#resultImg').attr('src', movie.poster);
       $('#resultTitle').html(movie.title);
-      $('#resultOrigTitle').html(movie.originalTitle);
+      if(movie.title != movie.originalTitle){
+        $('#originalTitle').html('(' + movie.originalTitle + ')');
+      }
+      $('#tagline').html(movie.tagline);
+      $('#resultOverview').html(movie.overview);
       $('#resultVote').html(movie.vote);
+      $('#imdbLink').attr('href', imdbLinkBase + movie.imdb);
       $('#detailsLink').attr('href', detailsLinkBase + movie.id);
 
       //post decoration actions

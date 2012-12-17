@@ -14,7 +14,7 @@ h1  sup{
 }
 
 legend{
-	margin: 10px 0 8px 0;
+  margin: 10px 0 8px 0;
 }
 
 #errorRibbon{
@@ -38,7 +38,17 @@ legend{
 }
 
 #resultArea2{
-	font-size: 1.1em;
+  font-size: 1.1em;
+}
+
+#tagline{
+  font-style: italic;
+  font-size: 0.8em;
+}
+
+#resultOverview{
+  text-align: justify;
+  width: 120%;
 }
 
 #loading, #noResult{

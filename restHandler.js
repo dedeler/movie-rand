@@ -15,6 +15,8 @@
   along with change-it-now.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+"use strict";
+
 var sessionManager = require('./sessionManager');
 var apiRequestHelper = require('./apiRequestHelper');
 
@@ -86,16 +88,32 @@ module.exports = {
           randomItem = randomFromInterval(0, itemCount - 1);
           var selectedMovie = apiResponse.results[randomItem];
 
-          //process selected movie
-          var processedResult = {
-            id: selectedMovie.id,
-            title: selectedMovie.title,
-            originalTitle: selectedMovie.original_title,
-            poster: posterBase + selectedMovie.poster_path,
-            vote: selectedMovie.vote_average
-          };
+          //get movie details
+          apiRequestHelper.httpGetRequest('/3/movie/' + selectedMovie.id, function(responseString) {
+              var theMovie = JSON.parse(responseString);
 
-          res.end(JSON.stringify(processedResult));
+              // return unsuccessful response if present
+              if(theMovie.success == false){
+                res.end(JSON.stringify(theMovie));     
+                return;   
+              }
+
+              //process selected movie
+              var processedResult = {
+                id: theMovie.id,
+                title: theMovie.title,
+                overview: theMovie.overview,
+                imdb: theMovie.imdb_id,
+                originalTitle: theMovie.original_title,
+                poster: posterBase + theMovie.poster_path,
+                vote: theMovie.vote_average,
+                releaseDate: theMovie.release_date,
+                tagline: theMovie.tagline
+              };
+
+              res.end(JSON.stringify(processedResult));
+              });
+
         }
 
         pickRandomMovieAndRespondBack();

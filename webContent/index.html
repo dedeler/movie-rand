@@ -49,10 +49,17 @@
             <img id="resultImg" src="" title="Movie poster" />
           </div>
           <div id="resultArea2" class="span3">
-              <legend>Title</legend><div id="resultTitle"></div>
-              <legend>Original Title</legend><div id="resultOrigTitle"></div>
-              <legend>Vote</legend><div id="resultVote"></div>
+              <legend>Title</legend>
+              <div id="resultTitle" title="Title of the movie"></div>
+              <div id="originalTitle" title="Original title of the movie"></div>
+              <div id="tagline" title="Tagline of the movie"></div>
+
+              <legend>Overview</legend><div id="resultOverview"></div>
+              <legend>Vote</legend><div id="resultVote" title="Votes on TMDB"></div>
               <legend>Actions</legend>
+              <div>
+                <a title="Opens in a new tab" id="imdbLink" href="" target="_blank">See details on IMDB <i title="Opens in a new tab" class="icon-share"></i></a>
+              </div>
               <div>
                 <a title="Opens in a new tab" id="detailsLink" href="" target="_blank">See details on TMDB <i title="Opens in a new tab" class="icon-share"></i></a>
               </div>
