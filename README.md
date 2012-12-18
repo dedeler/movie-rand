@@ -1,13 +1,19 @@
 MovieRand()
 =============
 Suggests you random movies, just.
-	
-	export API_KEY=XXXXXX
+
+    export API_KEY=XXXXXX
     node server.js
 
 Dependencies
 ------------
 * restify
+
+**Installing dependencies**
+
+    npm install
+
+*This command will intall deoendencies from package.js file so you don't need to specify them explicitly.*
 
 License
 =======
