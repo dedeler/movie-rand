@@ -27,5 +27,5 @@ module.exports = {
   ERROR_PAGES_PATH                : "/errorPages",
 
   // External api
-  API_KEY                         : ""
+  API_KEY                         : process.env.API_KEY
 };
