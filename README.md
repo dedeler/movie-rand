@@ -13,7 +13,7 @@ Dependencies
 
     npm install
 
-*This command will intall deoendencies from package.js file so you don't need to specify them explicitly.*
+*This command will install dependencies from package.js file so you don't need to specify them explicitly.*
 
 License
 =======
