@@ -125,8 +125,10 @@ function decorateByMovie(movie) {
   window.location.hash = 'movie/' + movie.id;
 
   //decorate result
+  var releaseDate = movie.releaseDate ? movie.releaseDate.substring(0,4) : "????";
+
   $('#resultImg').attr('src', movie.poster);
-  $('#resultTitle').html(movie.title);
+  $('#resultTitle').html(movie.title + ' (' + releaseDate + ')');
   if(movie.title != movie.originalTitle){
     $('#originalTitle').html('(' + movie.originalTitle + ')');
   }
