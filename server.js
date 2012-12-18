@@ -36,6 +36,7 @@ server.listen(properties.PORT, properties.IP, function() {
 // Controllers
 server.get('/genre/list', restHandler.getGenres);
 server.get('/movie/genre/:id', restHandler.getMovieByGenre);
+server.get('/movie/:id', restHandler.getMovieById);
 
 // Serving static content, ensure to be the last handler
 server.get('/.*', staticHandler.serveStaticContent); //ensure to be the last handler

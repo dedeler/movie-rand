@@ -1,7 +1,8 @@
 MovieRand()
 =============
 Suggests you random movies, just.
-
+	
+	export API_KEY=XXXXXX
     node server.js
 
 Dependencies

@@ -51,7 +51,14 @@ module.exports = {
       //the whole response has been recieved, so we just print it out here
       response.on('end', function () {
         if(typeof callback == 'function'){
-          callback(str);
+
+          //check api specific error and encapsulate it if exists
+          var apiResponseAsObj = JSON.parse(str);
+          if(typeof apiResponseAsObj.status_code != 'undefined'){
+            apiResponseAsObj.success = false;
+          }
+
+          callback(JSON.stringify(apiResponseAsObj));
         }
       });
     };
