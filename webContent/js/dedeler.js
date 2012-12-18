@@ -101,6 +101,23 @@ $(document).ready(function() {
     });//end of ajax
   }
 
+  $('#tweeterPopupLink').click(function(event) {
+    var width  = 575,
+        height = 400,
+        left   = ($(window).width()  - width)  / 2,
+        top    = ($(window).height() - height) / 2,
+        url    = this.href,
+        opts   = 'status=1' +
+                 ',width='  + width  +
+                 ',height=' + height +
+                 ',top='    + top    +
+                 ',left='   + left;
+    
+    window.open(url, 'twitter', opts);
+ 
+    return false;
+  });
+
 });//end of doc.ready
 
 function decorateByMovie(movie) {
@@ -144,4 +161,9 @@ function decorateByMovie(movie) {
   $('html, body').animate({
       scrollTop: $("#resultContainer").offset().top
    }, 1500);
-}
+
+  //updateTweetButton
+  var url = 'https://twitter.com/intent/tweet?original_referer=http%3A%2F%2F0.0.0.0%3A3169%2F&text=I%20have%20just%20found%20a%20movie%20via%20%23MovieRand&tw_p=tweetbutton&url=http%3A%2F%2F0.0.0.0%3A3169%2F%23movie%2F';
+  $('#tweeterPopupLink').attr('href', url + movie.id);
+
+}//decorateByMovie
