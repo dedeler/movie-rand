@@ -1,0 +1,10 @@
+{
+  "name": "dedeler-server",
+  "version": "0.0.1",
+  "dependencies": {
+    "restify": ""
+  },
+  "engines": {
+    "node": "0.6"
+  }
+}
