@@ -123,6 +123,7 @@ $(document).ready(function() {
 function decorateByMovie(movie) {
   var detailsLinkBase = 'http://www.themoviedb.org/movie/';
   var imdbLinkBase = 'http://www.imdb.com/title/';
+  var katLinkBase = 'http://kat.ph/usearch/';
 
   var button = $('#suggestButton');
   button.removeAttr("disabled");
@@ -154,6 +155,7 @@ function decorateByMovie(movie) {
   $('#resultVote').html(movie.vote);
   $('#imdbLink').attr('href', imdbLinkBase + movie.imdb);
   $('#detailsLink').attr('href', detailsLinkBase + movie.id);
+  $('#katLink').attr('href', katLinkBase + movie.title + '/');
 
   //post decoration actions
   $('.mutex1').hide();
