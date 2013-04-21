@@ -101,11 +101,29 @@ $(document).ready(function() {
     });//end of ajax
   }
 
+  $('#tweeterPopupLink').click(function(event) {
+    var width  = 575,
+        height = 400,
+        left   = ($(window).width()  - width)  / 2,
+        top    = ($(window).height() - height) / 2,
+        url    = this.href,
+        opts   = 'status=1' +
+                 ',width='  + width  +
+                 ',height=' + height +
+                 ',top='    + top    +
+                 ',left='   + left;
+    
+    window.open(url, 'twitter', opts);
+ 
+    return false;
+  });
+
 });//end of doc.ready
 
 function decorateByMovie(movie) {
   var detailsLinkBase = 'http://www.themoviedb.org/movie/';
   var imdbLinkBase = 'http://www.imdb.com/title/';
+  var katLinkBase = 'http://kat.ph/usearch/';
 
   var button = $('#suggestButton');
   button.removeAttr("disabled");
@@ -137,6 +155,7 @@ function decorateByMovie(movie) {
   $('#resultVote').html(movie.vote);
   $('#imdbLink').attr('href', imdbLinkBase + movie.imdb);
   $('#detailsLink').attr('href', detailsLinkBase + movie.id);
+  $('#katLink').attr('href', katLinkBase + movie.title + '/');
 
   //post decoration actions
   $('.mutex1').hide();
@@ -144,4 +163,13 @@ function decorateByMovie(movie) {
   $('html, body').animate({
       scrollTop: $("#resultContainer").offset().top
    }, 1500);
-}
+
+  //updateTweetButton
+  var url = 'https://twitter.com/intent/tweet?original_referer=http%3A%2F%2F0.0.0.0%3A3169%2F&text=I%20have%20just%20found%20a%20movie%20via%20%23MovieRand&tw_p=tweetbutton&url=http%3A%2F%2F0.0.0.0%3A3169%2F%23movie%2F';
+  $('#tweeterPopupLink').attr('href', url + movie.id);
+
+  //update facebook button
+
+  $('#facebookButtonContainer').html('<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURIComponent(window.location.href) + '&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=true&amp;font&amp;colorscheme=light&amp;action=recommend&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>');
+
+}//decorateByMovie

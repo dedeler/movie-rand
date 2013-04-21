@@ -77,3 +77,16 @@ legend{
 .float-right{
   float: right;
 }
+
+.tweetButtonIcon{
+  background-image: url("https://twimg0-a.akamaihd.net/a/1355770736/images/b2_btn_icon.gif");
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background-repeat: no-repeat;
+  margin-right: 5px;
+}
+
+#facebookButtonContainer{
+  margin-top: 5px;
+}
