@@ -29,6 +29,11 @@ server.use(restify.queryParser({ mapParams: true }));          //register query 
 server.use(sessionManager.sessionInterceptor);                 //register session interceptor
 server.use(authenticationHandler.authenticationInterceptor);   //register authentication interceptor
 
+process.on('uncaughtException', function (err) {
+  console.error(err);
+  console.log("Node NOT Exiting...");
+});
+
 server.listen(properties.PORT, properties.IP, function() {
   console.log('%s listening at %s', server.name, server.url);
 });
